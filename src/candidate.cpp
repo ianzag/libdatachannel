@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#include "candidate.hpp"
+#include "rtc/candidate.hpp"
 
 #include "impl/internals.hpp"
 

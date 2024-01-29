@@ -7,7 +7,7 @@
  */
 
 #include "verifiedtlstransport.hpp"
-#include "common.hpp"
+#include "rtc/common.hpp"
 
 #if RTC_ENABLE_WEBSOCKET
 

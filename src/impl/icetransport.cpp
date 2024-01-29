@@ -7,7 +7,7 @@
  */
 
 #include "icetransport.hpp"
-#include "configuration.hpp"
+#include "rtc/configuration.hpp"
 #include "internals.hpp"
 #include "transport.hpp"
 #include "utils.hpp"

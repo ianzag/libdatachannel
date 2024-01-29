@@ -10,11 +10,10 @@
 #define RTC_IMPL_DATA_CHANNEL_H
 
 #include "channel.hpp"
-#include "common.hpp"
-#include "message.hpp"
-#include "peerconnection.hpp"
+#include "rtc/common.hpp"
+#include "rtc/message.hpp"
 #include "queue.hpp"
-#include "reliability.hpp"
+#include "rtc/reliability.hpp"
 #include "sctptransport.hpp"
 
 #include <atomic>

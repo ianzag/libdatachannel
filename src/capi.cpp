@@ -6,8 +6,8 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#include "rtc.h"
-#include "rtc.hpp"
+#include "rtc/rtc.h"
+#include "rtc/rtc.hpp"
 
 #include "impl/internals.hpp"
 

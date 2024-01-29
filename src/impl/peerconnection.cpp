@@ -15,7 +15,7 @@
 #include "logcounter.hpp"
 #include "peerconnection.hpp"
 #include "processor.hpp"
-#include "rtp.hpp"
+#include "rtc/rtp.hpp"
 #include "sctptransport.hpp"
 #include "utils.hpp"
 

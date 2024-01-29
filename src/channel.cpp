@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#include "channel.hpp"
+#include "rtc/channel.hpp"
 
 #include "impl/channel.hpp"
 #include "impl/internals.hpp"

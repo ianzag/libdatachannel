@@ -9,7 +9,7 @@
 #if RTC_ENABLE_WEBSOCKET
 
 #include "websocket.hpp"
-#include "common.hpp"
+#include "rtc/common.hpp"
 #include "internals.hpp"
 #include "processor.hpp"
 #include "utils.hpp"

@@ -9,7 +9,7 @@
 #ifndef RTC_IMPL_PEER_CONNECTION_H
 #define RTC_IMPL_PEER_CONNECTION_H
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 #include "datachannel.hpp"
 #include "dtlstransport.hpp"
 #include "icetransport.hpp"

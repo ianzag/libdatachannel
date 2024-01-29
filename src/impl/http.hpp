@@ -9,7 +9,7 @@
 #ifndef RTC_IMPL_HTTP_H
 #define RTC_IMPL_HTTP_H
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 
 #include <list>
 #include <map>

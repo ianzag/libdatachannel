@@ -9,8 +9,8 @@
 #ifndef RTC_IMPL_CHANNEL_H
 #define RTC_IMPL_CHANNEL_H
 
-#include "common.hpp"
-#include "message.hpp"
+#include "rtc/common.hpp"
+#include "rtc/message.hpp"
 
 #include <atomic>
 #include <functional>

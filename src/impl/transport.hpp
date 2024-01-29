@@ -9,10 +9,10 @@
 #ifndef RTC_IMPL_TRANSPORT_H
 #define RTC_IMPL_TRANSPORT_H
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 #include "init.hpp"
 #include "internals.hpp"
-#include "message.hpp"
+#include "rtc/message.hpp"
 
 #include <atomic>
 #include <functional>
