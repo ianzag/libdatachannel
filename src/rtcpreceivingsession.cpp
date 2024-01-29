@@ -9,8 +9,8 @@
 
 #if RTC_ENABLE_MEDIA
 
-#include "rtcpreceivingsession.hpp"
-#include "track.hpp"
+#include "rtc/rtcpreceivingsession.hpp"
+#include "rtc/track.hpp"
 
 #include "impl/logcounter.hpp"
 

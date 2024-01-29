@@ -12,10 +12,10 @@
 #if RTC_ENABLE_WEBSOCKET
 
 #include "channel.hpp"
-#include "common.hpp"
+#include "rtc/common.hpp"
 #include "httpproxytransport.hpp"
 #include "init.hpp"
-#include "message.hpp"
+#include "rtc/message.hpp"
 #include "queue.hpp"
 #include "tcptransport.hpp"
 #include "tlstransport.hpp"

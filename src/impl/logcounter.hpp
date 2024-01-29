@@ -9,7 +9,7 @@
 #ifndef RTC_SERVER_LOGCOUNTER_HPP
 #define RTC_SERVER_LOGCOUNTER_HPP
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 #include "threadpool.hpp"
 
 #include <atomic>

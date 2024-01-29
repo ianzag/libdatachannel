@@ -9,7 +9,7 @@
 #ifndef RTC_IMPL_UTILS_H
 #define RTC_IMPL_UTILS_H
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 
 #include <climits>
 #include <limits>

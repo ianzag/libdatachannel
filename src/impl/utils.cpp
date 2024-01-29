@@ -8,7 +8,7 @@
 
 #include "utils.hpp"
 
-#include "impl/internals.hpp"
+#include "internals.hpp"
 
 #include <algorithm>
 #include <cctype>

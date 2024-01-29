@@ -9,7 +9,7 @@
 #ifndef RTC_IMPL_POLL_INTERRUPTER_H
 #define RTC_IMPL_POLL_INTERRUPTER_H
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 #include "socket.hpp"
 
 #if RTC_ENABLE_WEBSOCKET

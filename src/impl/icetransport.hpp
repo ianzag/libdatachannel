@@ -9,12 +9,11 @@
 #ifndef RTC_IMPL_ICE_TRANSPORT_H
 #define RTC_IMPL_ICE_TRANSPORT_H
 
-#include "candidate.hpp"
-#include "common.hpp"
-#include "configuration.hpp"
-#include "description.hpp"
-#include "global.hpp"
-#include "peerconnection.hpp"
+#include "rtc/candidate.hpp"
+#include "rtc/common.hpp"
+#include "rtc/configuration.hpp"
+#include "rtc/description.hpp"
+#include "rtc/global.hpp"
 #include "transport.hpp"
 
 #if !USE_NICE

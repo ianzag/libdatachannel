@@ -8,7 +8,7 @@
 
 #include "dtlssrtptransport.hpp"
 #include "logcounter.hpp"
-#include "rtp.hpp"
+#include "rtc/rtp.hpp"
 #include "tls.hpp"
 
 #if RTC_ENABLE_MEDIA

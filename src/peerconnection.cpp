@@ -7,9 +7,9 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#include "peerconnection.hpp"
-#include "common.hpp"
-#include "rtp.hpp"
+#include "rtc/peerconnection.hpp"
+#include "rtc/common.hpp"
+#include "rtc/rtp.hpp"
 
 #include "impl/certificate.hpp"
 #include "impl/dtlstransport.hpp"

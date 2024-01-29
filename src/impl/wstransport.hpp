@@ -9,9 +9,9 @@
 #ifndef RTC_IMPL_WS_TRANSPORT_H
 #define RTC_IMPL_WS_TRANSPORT_H
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 #include "transport.hpp"
-#include "configuration.hpp"
+#include "rtc/configuration.hpp"
 #include "wshandshake.hpp"
 
 #if RTC_ENABLE_WEBSOCKET

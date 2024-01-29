@@ -11,7 +11,7 @@
 
 #if RTC_ENABLE_WEBSOCKET
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 
 namespace rtc::impl {
 

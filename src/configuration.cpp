@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#include "configuration.hpp"
+#include "rtc/configuration.hpp"
 
 #include "impl/utils.hpp"
 

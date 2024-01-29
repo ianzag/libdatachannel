@@ -8,7 +8,7 @@
 
 #if RTC_ENABLE_MEDIA
 
-#include "h264rtppacketizer.hpp"
+#include "rtc/h264rtppacketizer.hpp"
 
 #include "impl/internals.hpp"
 

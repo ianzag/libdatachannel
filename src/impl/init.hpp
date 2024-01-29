@@ -9,8 +9,8 @@
 #ifndef RTC_IMPL_INIT_H
 #define RTC_IMPL_INIT_H
 
-#include "common.hpp"
-#include "global.hpp" // for SctpSettings
+#include "rtc/common.hpp"
+#include "rtc/global.hpp" // for SctpSettings
 
 #include <chrono>
 #include <future>

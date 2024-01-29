@@ -8,8 +8,8 @@
 
 #if RTC_ENABLE_WEBSOCKET
 
-#include "websocketserver.hpp"
-#include "common.hpp"
+#include "rtc/websocketserver.hpp"
+#include "rtc/common.hpp"
 
 #include "impl/internals.hpp"
 #include "impl/websocketserver.hpp"

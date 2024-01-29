@@ -9,7 +9,7 @@
 #ifndef RTC_IMPL_WS_HANDSHAKE_H
 #define RTC_IMPL_WS_HANDSHAKE_H
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 
 #if RTC_ENABLE_WEBSOCKET
 

@@ -9,7 +9,7 @@
 #ifndef RTC_IMPL_POLL_SERVICE_H
 #define RTC_IMPL_POLL_SERVICE_H
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 #include "internals.hpp"
 #include "pollinterrupter.hpp"
 #include "socket.hpp"

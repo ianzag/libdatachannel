@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#include "message.hpp"
+#include "rtc/message.hpp"
 
 namespace rtc {
 

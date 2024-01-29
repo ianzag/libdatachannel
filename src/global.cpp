@@ -14,7 +14,7 @@
 #include "plog/Log.h"
 #include "plog/Logger.h"
 //
-#include "global.hpp"
+#include "rtc/global.hpp"
 
 #include "impl/init.hpp"
 

@@ -8,7 +8,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#include "rtp.hpp"
+#include "rtc/rtp.hpp"
 
 #include "impl/internals.hpp"
 

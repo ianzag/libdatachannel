@@ -8,7 +8,7 @@
 
 #if RTC_ENABLE_MEDIA
 
-#include "rtppacketizationconfig.hpp"
+#include "rtc/rtppacketizationconfig.hpp"
 
 #include "impl/utils.hpp"
 

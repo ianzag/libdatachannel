@@ -9,7 +9,7 @@
 #ifndef RTC_IMPL_PROCESSOR_H
 #define RTC_IMPL_PROCESSOR_H
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 #include "queue.hpp"
 #include "threadpool.hpp"
 

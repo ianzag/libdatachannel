@@ -9,9 +9,9 @@
 #ifndef RTC_IMPL_CERTIFICATE_H
 #define RTC_IMPL_CERTIFICATE_H
 
-#include "description.hpp" // for CertificateFingerprint
-#include "common.hpp"
-#include "configuration.hpp" // for CertificateType
+#include "rtc/description.hpp" // for CertificateFingerprint
+#include "rtc/common.hpp"
+#include "rtc/configuration.hpp" // for CertificateType
 #include "init.hpp"
 #include "tls.hpp"
 

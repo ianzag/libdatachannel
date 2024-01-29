@@ -7,7 +7,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#include "description.hpp"
+#include "rtc/description.hpp"
 
 #include "impl/internals.hpp"
 #include "impl/utils.hpp"

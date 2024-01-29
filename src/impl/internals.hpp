@@ -9,7 +9,7 @@
 #ifndef RTC_IMPL_INTERNALS_H
 #define RTC_IMPL_INTERNALS_H
 
-#include "common.hpp"
+#include "rtc/common.hpp"
 
 // Disable warnings before including plog
 #if defined(__GNUC__) || defined(__clang__)

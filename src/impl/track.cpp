@@ -10,7 +10,7 @@
 #include "internals.hpp"
 #include "logcounter.hpp"
 #include "peerconnection.hpp"
-#include "rtp.hpp"
+#include "rtc/rtp.hpp"
 
 namespace rtc::impl {
 

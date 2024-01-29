@@ -12,9 +12,9 @@
 #if RTC_ENABLE_WEBSOCKET
 
 #include "certificate.hpp"
-#include "common.hpp"
+#include "rtc/common.hpp"
 #include "init.hpp"
-#include "message.hpp"
+#include "rtc/message.hpp"
 #include "tcpserver.hpp"
 #include "websocket.hpp"
 

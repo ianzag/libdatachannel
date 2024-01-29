@@ -9,9 +9,9 @@
 #ifndef RTC_IMPL_SCTP_TRANSPORT_H
 #define RTC_IMPL_SCTP_TRANSPORT_H
 
-#include "common.hpp"
-#include "configuration.hpp"
-#include "global.hpp"
+#include "rtc/common.hpp"
+#include "rtc/configuration.hpp"
+#include "rtc/global.hpp"
 #include "processor.hpp"
 #include "queue.hpp"
 #include "transport.hpp"

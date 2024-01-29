@@ -8,7 +8,7 @@
 
 #if RTC_ENABLE_MEDIA
 
-#include "nalunit.hpp"
+#include "rtc/nalunit.hpp"
 
 #include "impl/internals.hpp"
 

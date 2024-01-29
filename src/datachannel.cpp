@@ -6,9 +6,9 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#include "datachannel.hpp"
-#include "common.hpp"
-#include "peerconnection.hpp"
+#include "rtc/datachannel.hpp"
+#include "rtc/common.hpp"
+#include "rtc/peerconnection.hpp"
 
 #include "impl/datachannel.hpp"
 #include "impl/internals.hpp"

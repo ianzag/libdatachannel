@@ -8,7 +8,7 @@
 
 #if RTC_ENABLE_MEDIA
 
-#include "rtcpsrreporter.hpp"
+#include "rtc/rtcpsrreporter.hpp"
 
 #include <cassert>
 #include <chrono>

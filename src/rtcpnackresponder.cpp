@@ -8,8 +8,8 @@
 
 #if RTC_ENABLE_MEDIA
 
-#include "rtcpnackresponder.hpp"
-#include "rtp.hpp"
+#include "rtc/rtcpnackresponder.hpp"
+#include "rtc/rtp.hpp"
 
 #include "impl/internals.hpp"
 
