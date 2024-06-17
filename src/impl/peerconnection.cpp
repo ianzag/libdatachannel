@@ -46,24 +46,22 @@ static LogCounter
 
 const string PemBeginCertificateTag = "-----BEGIN CERTIFICATE-----";
 
-PeerConnection::PeerConnection(Configuration config_)
-    : config(std::move(config_)) {
+PeerConnection::PeerConnection(Configuration config_) : config(std::move(config_)) {
 	PLOG_VERBOSE << "Creating PeerConnection";
-
 
 	if (config.certificatePemFile && config.keyPemFile) {
 		std::promise<certificate_ptr> cert;
 		cert.set_value(std::make_shared<Certificate>(
-			config.certificatePemFile->find(PemBeginCertificateTag) != string::npos
-				? Certificate::FromString(*config.certificatePemFile, *config.keyPemFile)
-				: Certificate::FromFile(*config.certificatePemFile, *config.keyPemFile,
-										config.keyPemPass.value_or(""))));
+		    config.certificatePemFile->find(PemBeginCertificateTag) != string::npos
+		        ? Certificate::FromString(*config.certificatePemFile, *config.keyPemFile)
+		        : Certificate::FromFile(*config.certificatePemFile, *config.keyPemFile,
+		                                config.keyPemPass.value_or(""))));
 		mCertificate = cert.get_future();
 	} else if (!config.certificatePemFile && !config.keyPemFile) {
 		mCertificate = make_certificate(config.certificateType);
 	} else {
 		throw std::invalid_argument(
-			"Either none or both certificate and key PEM files must be specified");
+		    "Either none or both certificate and key PEM files must be specified");
 	}
 
 	if (config.portRangeEnd && config.portRangeBegin > config.portRangeEnd)
@@ -229,9 +227,13 @@ shared_ptr<DtlsTransport> PeerConnection::initDtlsTransport() {
 
 		PLOG_VERBOSE << "Starting DTLS transport";
 
-		auto fingerprintAlgorithm = CertificateFingerprint::Algorithm::Sha256;
-		if (auto remote = remoteDescription(); remote && remote->fingerprint()) {
-			fingerprintAlgorithm = remote->fingerprint()->algorithm;
+		CertificateFingerprint::Algorithm fingerprintAlgorithm;
+		{
+			std::lock_guard lock(mRemoteDescriptionMutex);
+			if (mRemoteDescription && mRemoteDescription->fingerprint()) {
+				mRemoteFingerprintAlgorithm = mRemoteDescription->fingerprint()->algorithm;
+			}
+			fingerprintAlgorithm = mRemoteFingerprintAlgorithm;
 		}
 
 		auto lower = std::atomic_load(&mIceTransport);
@@ -439,21 +441,27 @@ void PeerConnection::rollbackLocalDescription() {
 	}
 }
 
-bool PeerConnection::checkFingerprint(const std::string &fingerprint) const {
+bool PeerConnection::checkFingerprint(const std::string &fingerprint) {
 	std::lock_guard lock(mRemoteDescriptionMutex);
-	if (!mRemoteDescription || !mRemoteDescription->fingerprint())
+	mRemoteFingerprint = fingerprint;
+
+	if (!mRemoteDescription || !mRemoteDescription->fingerprint()
+			|| mRemoteFingerprintAlgorithm != mRemoteDescription->fingerprint()->algorithm)
 		return false;
 
-	if (config.disableFingerprintVerification)
+	if (config.disableFingerprintVerification) {
+		PLOG_VERBOSE << "Skipping fingerprint validation";
 		return true;
+	}
 
 	auto expectedFingerprint = mRemoteDescription->fingerprint()->value;
-	if (expectedFingerprint  == fingerprint) {
+	if (expectedFingerprint == fingerprint) {
 		PLOG_VERBOSE << "Valid fingerprint \"" << fingerprint << "\"";
 		return true;
 	}
 
-	PLOG_ERROR << "Invalid fingerprint \"" << fingerprint << "\", expected \"" << expectedFingerprint << "\"";
+	PLOG_ERROR << "Invalid fingerprint \"" << fingerprint << "\", expected \""
+	           << expectedFingerprint << "\"";
 	return false;
 }
 
@@ -549,7 +557,7 @@ void PeerConnection::forwardMedia([[maybe_unused]] message_ptr message) {
 void PeerConnection::dispatchMedia([[maybe_unused]] message_ptr message) {
 #if RTC_ENABLE_MEDIA
 	std::shared_lock lock(mTracksMutex); // read-only
-	if (mTrackLines.size()==1) {
+	if (mTrackLines.size() == 1) {
 		if (auto track = mTrackLines.front().lock())
 			track->incoming(message);
 		return;
@@ -736,7 +744,7 @@ void PeerConnection::iterateDataChannels(
 	{
 		std::shared_lock lock(mDataChannelsMutex); // read-only
 		locked.reserve(mDataChannels.size());
-		for(auto it = mDataChannels.begin(); it != mDataChannels.end(); ++it) {
+		for (auto it = mDataChannels.begin(); it != mDataChannels.end(); ++it) {
 			auto channel = it->second.lock();
 			if (channel && !channel->isClosed())
 				locked.push_back(std::move(channel));
@@ -805,7 +813,7 @@ void PeerConnection::iterateTracks(std::function<void(shared_ptr<Track> track)> 
 	{
 		std::shared_lock lock(mTracksMutex); // read-only
 		locked.reserve(mTrackLines.size());
-		for(auto it = mTrackLines.begin(); it != mTrackLines.end(); ++it) {
+		for (auto it = mTrackLines.begin(); it != mTrackLines.end(); ++it) {
 			auto track = it->lock();
 			if (track && !track->isClosed())
 				locked.push_back(std::move(track));
@@ -878,11 +886,6 @@ void PeerConnection::validateRemoteDescription(const Description &description) {
 
 	if (activeMediaCount == 0)
 		throw std::invalid_argument("Remote description has no active media");
-
-	if (auto local = localDescription(); local && local->iceUfrag() && local->icePwd())
-		if (*description.iceUfrag() == *local->iceUfrag() &&
-		    *description.icePwd() == *local->icePwd())
-			throw std::logic_error("Got the local description as remote description");
 
 	PLOG_VERBOSE << "Remote description looks valid";
 }
@@ -1304,6 +1307,14 @@ void PeerConnection::resetCallbacks() {
 	gatheringStateChangeCallback = nullptr;
 	signalingStateChangeCallback = nullptr;
 	trackCallback = nullptr;
+}
+
+CertificateFingerprint PeerConnection::remoteFingerprint() {
+	std::lock_guard lock(mRemoteDescriptionMutex);
+	if (mRemoteFingerprint)
+		return {CertificateFingerprint{mRemoteFingerprintAlgorithm, *mRemoteFingerprint}};
+	else
+		return {};
 }
 
 void PeerConnection::updateTrackSsrcCache(const Description &description) {

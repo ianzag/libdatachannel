@@ -53,7 +53,7 @@ struct PeerConnection : std::enable_shared_from_this<PeerConnection> {
 
 	void endLocalCandidates();
 	void rollbackLocalDescription();
-	bool checkFingerprint(const std::string &fingerprint) const;
+	bool checkFingerprint(const std::string &fingerprint);
 	void forwardMessage(message_ptr message);
 	void forwardMedia(message_ptr message);
 	void forwardBufferedAmount(uint16_t stream, size_t amount);
@@ -99,6 +99,8 @@ struct PeerConnection : std::enable_shared_from_this<PeerConnection> {
 
 	void resetCallbacks();
 
+	CertificateFingerprint remoteFingerprint();
+
 	// Helper method for asynchronous callback invocation
 	template <typename... Args> void trigger(synchronized_callback<Args...> *cb, Args... args) {
 		try {
@@ -134,12 +136,16 @@ private:
 	future_certificate_ptr mCertificate;
 
 	Processor mProcessor;
-	optional<Description> mLocalDescription, mRemoteDescription;
+	optional<Description> mLocalDescription;
 	optional<Description> mCurrentLocalDescription;
-	mutable std::mutex mLocalDescriptionMutex, mRemoteDescriptionMutex;
+	mutable std::mutex mLocalDescriptionMutex;
+
+	optional<Description> mRemoteDescription;
+	CertificateFingerprint::Algorithm mRemoteFingerprintAlgorithm = CertificateFingerprint::Algorithm::Sha256;
+	optional<string> mRemoteFingerprint;
+	mutable std::mutex mRemoteDescriptionMutex;
 
 	shared_ptr<MediaHandler> mMediaHandler;
-
 	mutable std::shared_mutex mMediaHandlerMutex;
 
 	shared_ptr<IceTransport> mIceTransport;

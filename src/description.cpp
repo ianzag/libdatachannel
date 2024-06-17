@@ -310,12 +310,6 @@ string Description::generateSdp(string_view eol) const {
 
 	// Session-level attributes
 	sdp << "a=msid-semantic:WMS *" << eol;
-	sdp << "a=setup:" << mRole << eol;
-
-	if (mIceUfrag)
-		sdp << "a=ice-ufrag:" << *mIceUfrag << eol;
-	if (mIcePwd)
-		sdp << "a=ice-pwd:" << *mIcePwd << eol;
 	if (!mIceOptions.empty())
 		sdp << "a=ice-options:" << utils::implode(mIceOptions, ',') << eol;
 	if (mFingerprint)
@@ -338,6 +332,14 @@ string Description::generateSdp(string_view eol) const {
 	bool first = true;
 	for (const auto &entry : mEntries) {
 		sdp << entry->generateSdp(eol, addr, port);
+
+		// RFC 8829: Attributes that SDP permits to be at either the session level or the media level
+		// SHOULD generally be at the media level even if they are identical.
+		sdp << "a=setup:" << mRole << eol;
+		if (mIceUfrag)
+			sdp << "a=ice-ufrag:" << *mIceUfrag << eol;
+		if (mIcePwd)
+			sdp << "a=ice-pwd:" << *mIcePwd << eol;
 
 		if (!entry->isRemoved() && std::exchange(first, false)) {
 			// Candidates
@@ -369,27 +371,28 @@ string Description::generateApplicationSdp(string_view eol) const {
 	const uint16_t port =
 	    cand && cand->isResolved() ? *cand->port() : 9; // Port 9 is the discard protocol
 
+	// Session-level attributes
+	sdp << "a=msid-semantic:WMS *" << eol;
+	if (!mIceOptions.empty())
+		sdp << "a=ice-options:" << utils::implode(mIceOptions, ',') << eol;
+
+	for (const auto &attr : mAttributes)
+		sdp << "a=" << attr << eol;
+
 	// Application
 	auto app = mApplication ? mApplication : std::make_shared<Application>();
 	sdp << app->generateSdp(eol, addr, port);
 
-	// Session-level attributes
-	sdp << "a=msid-semantic:WMS *" << eol;
+	// Media-level attributes
 	sdp << "a=setup:" << mRole << eol;
-
 	if (mIceUfrag)
 		sdp << "a=ice-ufrag:" << *mIceUfrag << eol;
 	if (mIcePwd)
 		sdp << "a=ice-pwd:" << *mIcePwd << eol;
-	if (!mIceOptions.empty())
-		sdp << "a=ice-options:" << utils::implode(mIceOptions, ',') << eol;
 	if (mFingerprint)
 		sdp << "a=fingerprint:"
 		    << CertificateFingerprint::AlgorithmIdentifier(mFingerprint->algorithm) << " "
 		    << mFingerprint->value << eol;
-
-	for (const auto &attr : mAttributes)
-		sdp << "a=" << attr << eol;
 
 	// Candidates
 	for (const auto &candidate : mCandidates)
